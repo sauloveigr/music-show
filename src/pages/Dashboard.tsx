@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useShows } from '@/contexts/ShowContext';
+import { useShowStore } from '@/stores';
 import { supabase } from '@/lib/supabaseClient';
 import DashboardHero from '@/components/Dashboard/DashboardHero';
 import UpcomingShowsList from '@/components/Dashboard/UpcomingShowsList';
@@ -15,7 +15,7 @@ interface ShowData {
 }
 
 const Dashboard: React.FC = () => {
-  const { shows, getUpcomingShows } = useShows();
+  const { shows, getUpcomingShows } = useShowStore();
   const [data, setData] = useState<ShowData[]>([]);
 
   useEffect(() => {
@@ -35,7 +35,6 @@ const Dashboard: React.FC = () => {
   const upcomingShows = getUpcomingShows(3);
   const today = new Date();
 
-  // Calculate stats
   const thisMonthShows = shows.filter((show) => {
     const showDate = new Date(show.date);
     return (

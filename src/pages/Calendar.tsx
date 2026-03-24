@@ -3,13 +3,13 @@ import { format, startOfMonth, endOfMonth, eachDayOfInterval, isSameDay, isToday
 import { ptBR } from 'date-fns/locale';
 import { ChevronLeft, ChevronRight, Music2, ArrowLeft } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { useShows } from '@/contexts/ShowContext';
+import { useShowStore } from '@/stores';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 
 const Calendar: React.FC = () => {
   const navigate = useNavigate();
-  const { shows } = useShows();
+  const { shows } = useShowStore();
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
 
@@ -17,12 +17,10 @@ const Calendar: React.FC = () => {
   const monthEnd = endOfMonth(currentDate);
   const daysInMonth = eachDayOfInterval({ start: monthStart, end: monthEnd });
 
-  // Get shows for specific date
   const getShowsForDate = (date: Date) => {
     return shows.filter(show => isSameDay(new Date(show.date), date));
   };
 
-  // Get shows for selected date
   const selectedDateShows = selectedDate ? getShowsForDate(selectedDate) : [];
 
   const navigateMonth = (direction: 'prev' | 'next') => {
