@@ -52,7 +52,7 @@ const DashboardHero: React.FC<DashboardHeroProps> = ({
                 Olá, {userName}
               </h1>
 
-              <p className="mt-2 text-white/65 text-xs md:text-base">
+              <p className="mt-2 text-white/65 text-xs">
                 {format(todayDate, "EEEE, dd 'de' MMMM 'de' yyyy", { locale: ptBR })}
               </p>
 
