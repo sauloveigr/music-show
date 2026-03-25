@@ -1,10 +1,11 @@
 import React from 'react';
-import { Music, LogOut } from 'lucide-react';
+import { LogOut } from 'lucide-react';
 import { LucideIcon } from 'lucide-react';
 import { useAuthStore } from '@/stores';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import DesktopNav from './DesktopNav';
+import logoUrl from '@src/assets/logo.png';
 
 interface NavItemType {
   path: string;
@@ -31,8 +32,8 @@ const Header: React.FC<HeaderProps> = ({ navItems, currentPath }) => {
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-purple-600 to-purple-700 rounded-xl flex items-center justify-center shadow-lg">
-              <Music className="w-6 h-6 text-white" />
+            <div className="w-10 h-10 flex items-center justify-center">
+              <img src={logoUrl} alt="Music Show logo" className="w-8 h-8 object-contain" />
             </div>
             <div>
               <h1 className="text-xl font-bold text-white">Show Manager</h1>
@@ -52,7 +53,7 @@ const Header: React.FC<HeaderProps> = ({ navItems, currentPath }) => {
                   variant="ghost"
                   size="sm"
                   onClick={handleSignOut}
-                  className="text-gray-300 hover:text-white hover:bg-gray-700"
+                  className="text-gray-300 hover:text-white hover:bg-gray-700 px-4 py-2"
                   aria-label="Sair da conta"
                 >
                   <LogOut className="w-4 h-4" />
