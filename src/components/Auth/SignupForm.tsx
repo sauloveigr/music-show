@@ -102,6 +102,7 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSuccess }) => {
             id="password"
             type={showPassword ? 'text' : 'password'}
             placeholder="••••••••"
+            minLength={6}
             {...register('password')}
             className="pl-10 pr-10"
             aria-describedby={errors.password ? 'password-error' : undefined}
@@ -134,6 +135,7 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSuccess }) => {
             id="confirmPassword"
             type={showPassword ? 'text' : 'password'}
             placeholder="••••••••"
+            minLength={6}
             {...register('confirmPassword')}
             className="pl-10 pr-10"
             aria-describedby={errors.confirmPassword ? 'confirmPassword-error' : undefined}

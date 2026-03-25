@@ -71,6 +71,15 @@ export const useAuthStore = create<AuthState>()(
             signUpWithPassword: async (email: string, password: string, fullName?: string) => {
                 set({loading: true});
                 try {
+                    if (password.length < 6) {
+                        const passwordError = {message: 'Senha deve ter pelo menos 6 caracteres'};
+                        toast.error('Erro ao criar conta', {
+                            description: passwordError.message,
+                        });
+                        set({loading: false});
+                        return {error: passwordError};
+                    }
+
                     const {data, error} = await supabase.auth.signUp({
                         email: email.trim(),
                         password,

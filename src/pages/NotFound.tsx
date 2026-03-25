@@ -1,12 +1,13 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Home } from 'lucide-react';
 
 const NotFound: React.FC = () => {
   const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     console.error(
@@ -20,11 +21,11 @@ const NotFound: React.FC = () => {
       <section className="text-center">
         <h1 className="text-6xl font-bold text-white mb-4">404</h1>
         <p className="text-xl text-gray-400 mb-8">Oops! Página não encontrada</p>
-        <Button asChild variant="musical">
-          <Link to="/" className="flex items-center gap-2">
+        <Button variant="musical" onClick={() => navigate('/')}>
+          <span className="flex items-center gap-2">
             <Home className="w-4 h-4" />
             Voltar ao Início
-          </Link>
+          </span>
         </Button>
       </section>
     </main>

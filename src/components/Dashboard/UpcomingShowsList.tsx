@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Music, Plus, Calendar } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -13,17 +13,19 @@ interface UpcomingShowsListProps {
 }
 
 const UpcomingShowsList: React.FC<UpcomingShowsListProps> = ({ shows, isLoading = false }) => {
+  const navigate = useNavigate();
+
   return (
     <section>
       <header className="flex justify-between gap-4 mb-6">
         <h2 className="text-xl sm:text-2xl font-bold text-white">Próximos Shows</h2>
-        <Button variant="ghost" size="sm" className="">
-          <Link to="/calendar" className="flex items-center justify-center gap-2">
+        <Button variant="ghost" size="sm" onClick={() => navigate('/calendar')}>
+          <span className="flex items-center justify-center gap-2">
             <Calendar className="w-4 h-4" />
             <span className="text-sm">
               Ver calendário
             </span>
-          </Link>
+          </span>
         </Button>
       </header>
 
@@ -75,11 +77,15 @@ const UpcomingShowsList: React.FC<UpcomingShowsListProps> = ({ shows, isLoading 
           title="Nenhum show agendado"
           description="Comece adicionando seu primeiro show"
           action={
-            <Button asChild variant="musical" className="w-full sm:w-auto mx-auto inline-flex">
-              <Link to="/add-show" className="flex items-center justify-center gap-2">
+            <Button
+              variant="musical"
+              className="w-full sm:w-auto mx-auto inline-flex"
+              onClick={() => navigate('/add-show')}
+            >
+              <span className="flex items-center justify-center gap-2">
                 <Plus className="w-4 h-4" />
                 Adicionar Show
-              </Link>
+              </span>
             </Button>
           }
         />
