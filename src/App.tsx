@@ -1,4 +1,3 @@
-import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Toaster } from 'sonner';
@@ -12,16 +11,14 @@ import NotFound from '@/pages/NotFound';
 
 const queryClient = new QueryClient();
 
-function App(): JSX.Element {
+function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <Toaster />
       <BrowserRouter>
         <Routes>
-          {/* Public routes */}
           <Route path="/login" element={<Login />} />
 
-          {/* Protected routes */}
           <Route
             path="/"
             element={
@@ -53,10 +50,8 @@ function App(): JSX.Element {
             }
           />
 
-          {/* Redirect root to dashboard for authenticated users */}
           <Route path="/" element={<Navigate to="/" replace />} />
 
-          {/* Catch-all route */}
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

@@ -26,8 +26,8 @@ const NavItem: React.FC<NavItemProps> = ({ item, isActive, variant = 'desktop' }
         size="sm"
         className="flex flex-col gap-1 h-auto py-2 px-3 transition-all duration-300"
       >
-        <Link to={item.path}>
-          <Icon className="w-5 h-5" />
+        <Link to={item.path} className='flex flex-col items-center gap-1'>
+          <Icon className="w-4 h-4" />
           <span className="text-xs">{item.label}</span>
         </Link>
       </Button>
@@ -39,7 +39,7 @@ const NavItem: React.FC<NavItemProps> = ({ item, isActive, variant = 'desktop' }
       asChild
       variant={isActive ? 'musical' : 'ghost'}
       size="sm"
-      className="transition-all duration-300"
+      className="transition-all duration-300 py-1"
     >
       <Link to={item.path} className="flex items-center gap-2">
         <Icon className="w-4 h-4" />

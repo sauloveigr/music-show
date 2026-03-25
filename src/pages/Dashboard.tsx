@@ -1,36 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import { useShowStore } from '@/stores';
-import { supabase } from '@/lib/supabaseClient';
+import React from 'react';
+import { useAuthStore, useShowStore } from '@/stores';
+import { getUserDisplayName } from '@/lib/userDisplay';
 import DashboardHero from '@/components/Dashboard/DashboardHero';
 import UpcomingShowsList from '@/components/Dashboard/UpcomingShowsList';
 import StatsSection from '@/components/Dashboard/StatsSection';
 
-interface ShowData {
-  id: number;
-  created_at: string;
-  name: string;
-  date: string;
-  value: number;
-  time: string;
-}
-
 const Dashboard: React.FC = () => {
+  const user = useAuthStore((s) => s.user);
   const { shows, getUpcomingShows } = useShowStore();
-  const [data, setData] = useState<ShowData[]>([]);
 
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  async function fetchData() {
-    const { data, error } = await supabase.from('shows').select();
-
-    if (error) {
-      console.error(error);
-    } else {
-      setData(data || []);
-    }
-  }
+  const userName = getUserDisplayName(user);
 
   const upcomingShows = getUpcomingShows(3);
   const today = new Date();
@@ -47,8 +26,12 @@ const Dashboard: React.FC = () => {
 
   return (
     <div className="space-y-8">
-      <DashboardHero upcomingCount={upcomingShows.length} todayDate={today} />
-      <UpcomingShowsList shows={data} />
+      <DashboardHero
+        userName={userName}
+        upcomingCount={upcomingShows.length}
+        todayDate={today}
+      />
+      <UpcomingShowsList shows={upcomingShows} />
       <StatsSection
         thisMonthShowsCount={thisMonthShows.length}
         thisMonthEarnings={thisMonthEarnings}

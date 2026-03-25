@@ -21,20 +21,18 @@ const SubmitSection: React.FC<SubmitSectionProps> = ({
         size="lg"
         disabled={isSubmitting}
         className="flex-1"
-      >
-        <Plus className="w-5 h-5" />
-        {isSubmitting ? `${submitLabel.split(' ')[0]}...` : submitLabel}
-      </Button>
+        label={submitLabel}
+        iconLeft={<Plus className="w-4 h-4" />}
+      />
 
       <Button
         type="button"
         variant="outline"
-        size="lg"
+        size="md"
         onClick={onCancel}
         className="sm:w-auto"
-      >
-        Cancelar
-      </Button>
+        label="Cancelar"
+      />
     </footer>
   );
 };

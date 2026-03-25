@@ -4,18 +4,10 @@ import { Music, Plus, Calendar } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import ShowCard from '@/components/ShowCard';
 import { EmptyState } from '@/components/Shared';
-
-interface ShowData {
-  id: number;
-  created_at: string;
-  name: string;
-  date: string;
-  value: number;
-  time: string;
-}
+import { Show } from '@/types/show';
 
 interface UpcomingShowsListProps {
-  shows: ShowData[];
+  shows: Show[];
 }
 
 const UpcomingShowsList: React.FC<UpcomingShowsListProps> = ({ shows }) => {
@@ -23,7 +15,7 @@ const UpcomingShowsList: React.FC<UpcomingShowsListProps> = ({ shows }) => {
     <section>
       <header className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
         <h2 className="text-2xl font-bold text-white">Próximos Shows</h2>
-        <Button asChild variant="ghost" size="sm" className="w-full sm:w-auto">
+        <Button variant="ghost" size="md" className="w-full sm:w-auto">
           <Link to="/calendar" className="flex items-center justify-center gap-2">
             <Calendar className="w-4 h-4" />
             Ver calendário

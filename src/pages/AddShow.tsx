@@ -1,21 +1,17 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { supabase } from '@/lib/supabaseClient';
-import { Button } from '@/components/ui/button';
+import { toast } from 'sonner';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
 import { PageHeader, FormFieldGroup, SubmitSection } from '@/components/Forms';
-
-interface ShowFormData {
-  name: string;
-  date: string;
-  time: string;
-  value: number;
-}
+import { ShowFormData } from '@/types/show';
+import { useShowStore } from '@/stores/showStore';
 
 const AddShow: React.FC = () => {
   const navigate = useNavigate();
+  const { addShow } = useShowStore();
 
   const {
     register,
@@ -26,23 +22,19 @@ const AddShow: React.FC = () => {
 
   const onSubmit = async (data: ShowFormData) => {
     try {
-      const { error } = await supabase.from('shows').insert({
-        name: data.name,
-        date: data.date,
-        time: data.time,
-        value: data.value,
-      });
-
-      if (error) {
-        alert(`Erro ao adicionar show: ${error.message}`);
+      await addShow(data);
+      const storeError = useShowStore.getState().error;
+      if (storeError) {
+        toast.error('Erro ao adicionar show', { description: storeError });
         return;
       }
-
-      alert(`Show "${data.name}" adicionado com sucesso!`);
+      toast.success('Show adicionado com sucesso!', {
+        description: `"${data.title}"`,
+      });
       reset();
       navigate('/');
     } catch (error) {
-      alert('Erro ao adicionar show. Tente novamente.');
+      toast.error('Erro ao adicionar show. Tente novamente.');
       console.error(error);
     }
   };
@@ -58,17 +50,24 @@ const AddShow: React.FC = () => {
       <section>
         <Card className="bg-gradient-to-br from-gray-800 to-gray-900 border-gray-700/50 p-8">
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-            {/* Name */}
-            <FormFieldGroup label="Nome do Show *" error={errors.name?.message}>
+            <FormFieldGroup label="Título do Show *" error={errors.title?.message}>
               <Input
-                id="name"
-                {...register('name', { required: 'Nome do show é obrigatório' })}
+                id="title"
+                {...register('title', { required: 'Título do show é obrigatório' })}
                 placeholder="Ex: Jazz Night, Wedding Reception..."
                 className="bg-gray-700/50 border-gray-600 focus:border-purple-500 text-white"
               />
             </FormFieldGroup>
 
-            {/* Date and Time */}
+            <FormFieldGroup label="Local" error={errors.venue?.message}>
+              <Input
+                id="venue"
+                {...register('venue')}
+                placeholder="Ex: Teatro Municipal, Rua das Flores, 123..."
+                className="bg-gray-700/50 border-gray-600 focus:border-purple-500 text-white"
+              />
+            </FormFieldGroup>
+
             <fieldset className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <FormFieldGroup label="Data *" error={errors.date?.message}>
                 <Input
@@ -89,14 +88,13 @@ const AddShow: React.FC = () => {
               </FormFieldGroup>
             </fieldset>
 
-            {/* Value */}
-            <FormFieldGroup label="Cachê (R$) *" error={errors.value?.message}>
+            <FormFieldGroup label="Cachê (R$) *" error={errors.fee?.message}>
               <Input
-                id="value"
+                id="fee"
                 type="number"
                 step="0.01"
                 min="0"
-                {...register('value', {
+                {...register('fee', {
                   required: 'Cachê é obrigatório',
                   valueAsNumber: true,
                   min: { value: 0, message: 'Cachê deve ser positivo' },
@@ -106,7 +104,15 @@ const AddShow: React.FC = () => {
               />
             </FormFieldGroup>
 
-            {/* Submit Buttons */}
+            <FormFieldGroup label="Anotações" error={errors.notes?.message}>
+              <Textarea
+                id="notes"
+                {...register('notes')}
+                placeholder="Informações adicionais sobre o show..."
+                className="bg-gray-700/50 border-gray-600 focus:border-purple-500 text-white min-h-[100px]"
+              />
+            </FormFieldGroup>
+
             <SubmitSection
               isSubmitting={isSubmitting}
               onCancel={() => navigate(-1)}

@@ -1,50 +1,80 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { Plus } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { Music, Plus } from 'lucide-react';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import { Button } from '@/components/ui/button';
 
 interface DashboardHeroProps {
+  userName: string;
   upcomingCount: number;
   todayDate: Date;
   onNewShowClick?: () => void;
 }
 
-const DashboardHero: React.FC<DashboardHeroProps> = ({ upcomingCount, todayDate, onNewShowClick }) => {
+const DashboardHero: React.FC<DashboardHeroProps> = ({
+  userName,
+  upcomingCount,
+  todayDate,
+  onNewShowClick,
+}) => {
+  const navigate = useNavigate();
+  const pluralSuffix = upcomingCount > 1 ? 's' : '';
+
+  const handleNewShow = () => {
+    if (onNewShowClick) {
+      onNewShowClick();
+      return;
+    }
+
+    navigate('/add-show');
+  };
+
   return (
-    <section className="relative overflow-hidden">
-      <div className="bg-gradient-to-br from-purple-600 to-purple-700 rounded-2xl p-6 md:p-8 text-white shadow-lg">
+    <section className="relative overflow-hidden" aria-label="Dashboard hero">
+      <div
+        className="relative rounded-2xl p-6 md:p-8 text-white shadow-xl shadow-purple-900/20 border border-white/20 ring-1 ring-white/10 bg-gradient-to-br from-purple-600/35 to-purple-800/40 backdrop-blur-xl backdrop-saturate-150"
+      >
+        <div className="pointer-events-none absolute inset-0">
+          <div className="absolute -top-24 -right-24 h-72 w-72 rounded-full bg-purple-500/20 blur-3xl" />
+          <div className="absolute -bottom-20 -left-20 h-64 w-64 rounded-full bg-fuchsia-400/15 blur-3xl" />
+          <div className="absolute top-0 right-0 h-32 w-32 rounded-full bg-white/10 -translate-y-16 translate-x-16" />
+          <div className="absolute bottom-0 left-0 h-24 w-24 rounded-full bg-white/5 translate-y-12 -translate-x-12" />
+        </div>
+
         <div className="relative z-10">
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+          <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
             <header className="text-center md:text-left">
-              <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-2">
-                Bem-vindo de volta! 🎵
+              <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold">
+                Olá, {userName}
               </h1>
-              <p className="text-white/90 text-base md:text-lg">
+
+              <p className="mt-2 text-white/65 text-sm md:text-base">
                 {format(todayDate, "EEEE, dd 'de' MMMM 'de' yyyy", { locale: ptBR })}
               </p>
+
               {upcomingCount > 0 && (
-                <p className="text-white/80 mt-2">
-                  Você tem {upcomingCount} show{upcomingCount > 1 ? 's' : ''} próximo{upcomingCount > 1 ? 's' : ''}
+                <p className="mt-3 inline-flex items-center justify-center md:justify-start gap-2 text-white/85 text-sm">
+                  <Music className="h-4 w-4 text-white/70" />
+                  Você tem {upcomingCount} show{pluralSuffix} próximo{pluralSuffix}
                 </p>
               )}
+
+              <p className="mt-4 text-white/60 text-sm md:text-base">
+                Planeje sua agenda de shows em um só lugar.
+              </p>
             </header>
 
             <div className="flex justify-center md:justify-end">
-              <Button asChild variant="outline" size="lg" className="bg-white/10 border-white/20 text-white hover:bg-white/20 w-full md:w-auto">
-                <Link to="/add-show" className="flex items-center justify-center gap-2">
-                  <Plus className="w-5 h-5" />
+              <Button onClick={handleNewShow} type="button" variant="musical" size="lg" className="w-full md:w-auto">
+                <span className="flex items-center justify-center gap-2">
+                  <Plus className="h-5 w-5" />
                   Novo Show
-                </Link>
+                </span>
               </Button>
             </div>
           </div>
         </div>
-
-        {/* Background decoration */}
-        <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-16 translate-x-16" />
-        <div className="absolute bottom-0 left-0 w-24 h-24 bg-white/5 rounded-full translate-y-12 -translate-x-12" />
       </div>
     </section>
   );

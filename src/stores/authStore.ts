@@ -3,6 +3,17 @@ import {persist} from 'zustand/middleware';
 import {User, Session} from '@supabase/supabase-js';
 import {supabase} from '@/lib/supabaseClient';
 import {toast} from 'sonner';
+import {useShowStore} from '@/stores/showStore';
+
+/** Avoid showing another user's cached shows after switch-account / re-login. */
+let lastShowsOwnerId: string | null = null;
+
+function syncShowsWithSession(session: Session | null) {
+  const userId = session?.user?.id ?? null;
+  if (userId === lastShowsOwnerId) return;
+  lastShowsOwnerId = userId;
+  useShowStore.getState().clearShows();
+}
 
 interface AuthState {
   user: User | null;
@@ -45,6 +56,7 @@ export const useAuthStore = create<AuthState>()(
             user: session?.user ?? null,
             loading: false,
           });
+          syncShowsWithSession(session);
         } catch (error) {
           console.error('Error initializing auth:', error);
           set({loading: false});
@@ -66,6 +78,7 @@ export const useAuthStore = create<AuthState>()(
             session: data.session,
             loading: false,
           });
+          syncShowsWithSession(data.session);
 
           toast.success('Login realizado!', {
             description: 'Bem-vindo de volta!',
@@ -112,6 +125,7 @@ export const useAuthStore = create<AuthState>()(
             session: null,
             loading: false,
           });
+          syncShowsWithSession(null);
         } catch (error) {
           console.error('Error during sign out:', error);
         }
@@ -134,6 +148,7 @@ export const useAuthStore = create<AuthState>()(
 useAuthStore.getState().initialize();
 
 supabase.auth.onAuthStateChange((event, session) => {
+  syncShowsWithSession(session);
   useAuthStore.getState().setSession(session);
   useAuthStore.getState().setUser(session?.user ?? null);
   useAuthStore.getState().setLoading(false);

@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Calendar, Home, Plus } from 'lucide-react';
 import Header from '@/components/Layout/Header';
 import MobileNav from '@/components/Layout/MobileNav';
+import { useShowStore } from '@/stores';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -10,6 +11,11 @@ interface LayoutProps {
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   const location = useLocation();
+  const fetchShows = useShowStore((s) => s.fetchShows);
+
+  useEffect(() => {
+    fetchShows();
+  }, [fetchShows]);
 
   const navItems = [
     { path: '/', icon: Home, label: 'Dashboard' },
