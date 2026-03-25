@@ -3,6 +3,7 @@ import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import { Calendar, Clock, MapPin } from 'lucide-react';
 import { Show } from '@/types/show';
+import { capitalizeFirst } from '@/lib/utils';
 
 interface ShowCardProps {
   show: Show;
@@ -28,11 +29,11 @@ const ShowCard: React.FC<ShowCardProps> = ({ show, variant = 'default' }) => {
             <h3 className={`font-bold text-foreground truncate ${
               variant === 'compact' ? 'text-base' : 'text-lg'
             }`}>
-              {show.title}
+              {capitalizeFirst(show.title)}
             </h3>
             <div className="flex items-center gap-1.5 text-muted-foreground mt-0.5">
               <MapPin className="w-3.5 h-3.5 flex-shrink-0" />
-              <span className="text-sm truncate">{show.venue}</span>
+              <span className="text-sm truncate">{capitalizeFirst(show.venue) || '--'}</span>
             </div>
           </div>
 
@@ -50,7 +51,7 @@ const ShowCard: React.FC<ShowCardProps> = ({ show, variant = 'default' }) => {
         <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 text-sm text-muted-foreground">
           <div className="flex items-center gap-1.5">
             <Calendar className="w-3.5 h-3.5" />
-            <span>{format(showDate, 'dd MMM', { locale: ptBR })}</span>
+            <span>{format(showDate, "EEE, dd MMM", { locale: ptBR })}</span>
           </div>
           <div className="flex items-center gap-1.5">
             <Clock className="w-3.5 h-3.5" />
@@ -61,7 +62,7 @@ const ShowCard: React.FC<ShowCardProps> = ({ show, variant = 'default' }) => {
           </span>
         </div>
 
-        {show.notes && variant !== 'compact' && (
+        {show.notes && (
           <p className="mt-3 text-sm text-muted-foreground/80 line-clamp-2">{show.notes}</p>
         )}
       </div>

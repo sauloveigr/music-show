@@ -12,6 +12,8 @@ import { useShowStore } from '@/stores/showStore';
 const AddShow: React.FC = () => {
   const navigate = useNavigate();
   const { addShow } = useShowStore();
+  const showInputClassName =
+    'bg-gray-700/50 border-gray-600 text-white focus:border-purple-500 focus-visible:ring-purple-500';
 
   const {
     register,
@@ -54,8 +56,8 @@ const AddShow: React.FC = () => {
               <Input
                 id="title"
                 {...register('title', { required: 'Título do show é obrigatório' })}
-                placeholder="Ex: Jazz Night, Wedding Reception..."
-                className="bg-gray-700/50 border-gray-600 focus:border-purple-500 text-white"
+                placeholder="Ex: Floresta, Turatti..."
+                className={showInputClassName}
               />
             </FormFieldGroup>
 
@@ -63,8 +65,8 @@ const AddShow: React.FC = () => {
               <Input
                 id="venue"
                 {...register('venue')}
-                placeholder="Ex: Teatro Municipal, Rua das Flores, 123..."
-                className="bg-gray-700/50 border-gray-600 focus:border-purple-500 text-white"
+                placeholder="Ex: Varjota, Rua das Flores..."
+                className={showInputClassName}
               />
             </FormFieldGroup>
 
@@ -74,7 +76,7 @@ const AddShow: React.FC = () => {
                   id="date"
                   type="date"
                   {...register('date', { required: 'Data é obrigatória' })}
-                  className="bg-gray-700/50 border-gray-600 focus:border-purple-500 text-white"
+                  className={showInputClassName}
                 />
               </FormFieldGroup>
 
@@ -83,7 +85,7 @@ const AddShow: React.FC = () => {
                   id="time"
                   type="time"
                   {...register('time', { required: 'Horário é obrigatório' })}
-                  className="bg-gray-700/50 border-gray-600 focus:border-purple-500 text-white"
+                  className={showInputClassName}
                 />
               </FormFieldGroup>
             </fieldset>
@@ -100,7 +102,7 @@ const AddShow: React.FC = () => {
                   min: { value: 0, message: 'Cachê deve ser positivo' },
                 })}
                 placeholder="Ex: 800.00"
-                className="bg-gray-700/50 border-gray-600 focus:border-purple-500 text-white"
+                className={showInputClassName}
               />
             </FormFieldGroup>
 
@@ -109,7 +111,7 @@ const AddShow: React.FC = () => {
                 id="notes"
                 {...register('notes')}
                 placeholder="Informações adicionais sobre o show..."
-                className="bg-gray-700/50 border-gray-600 focus:border-purple-500 text-white min-h-[100px]"
+                className={`${showInputClassName} min-h-[100px]`}
               />
             </FormFieldGroup>
 
