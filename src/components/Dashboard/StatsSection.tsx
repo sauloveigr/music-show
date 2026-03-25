@@ -24,14 +24,15 @@ const StatsSection: React.FC<StatsProps> = ({
           <Card
             key={idx}
             as="article"
-            className="bg-gradient-to-br from-gray-800 to-gray-900 border-gray-700/50 p-6"
+            className="relative overflow-hidden border-white/10 bg-gradient-to-br from-card to-secondary/40 p-5"
           >
-            <div className="flex items-center gap-4">
-              <Skeleton className="h-12 w-12 rounded-xl" />
-              <div className="flex flex-col gap-2">
-                <Skeleton className="h-4 w-24" />
-                <Skeleton className="h-7 w-28" />
+            <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-purple-500/15 via-purple-500/60 to-purple-700/20" />
+            <div className="flex items-start justify-between gap-4">
+              <div className="space-y-2">
+                <Skeleton className="h-3 w-24" />
+                <Skeleton className="h-9 w-28" />
               </div>
+              <Skeleton className="h-11 w-11 rounded-xl" />
             </div>
           </Card>
         ))}
