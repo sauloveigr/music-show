@@ -7,7 +7,7 @@ import StatsSection from '@/components/Dashboard/StatsSection';
 
 const Dashboard: React.FC = () => {
   const user = useAuthStore((s) => s.user);
-  const { shows, getUpcomingShows } = useShowStore();
+  const { shows, getUpcomingShows, loading } = useShowStore();
 
   const userName = getUserDisplayName(user);
 
@@ -30,12 +30,14 @@ const Dashboard: React.FC = () => {
         userName={userName}
         upcomingCount={upcomingShows.length}
         todayDate={today}
+        isShowsLoading={loading}
       />
-      <UpcomingShowsList shows={upcomingShows} />
+      <UpcomingShowsList shows={upcomingShows} isLoading={loading} />
       <StatsSection
         thisMonthShowsCount={thisMonthShows.length}
         thisMonthEarnings={thisMonthEarnings}
         totalShowsCount={shows.length}
+        isLoading={loading}
       />
     </div>
   );
