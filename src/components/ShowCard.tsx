@@ -48,14 +48,16 @@ const ShowCard: React.FC<ShowCardProps> = ({ show, variant = 'default' }) => {
           </span>
         </div>
 
-        <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 text-sm text-muted-foreground">
-          <div className="flex items-center gap-1.5">
-            <Calendar className="w-3.5 h-3.5" />
-            <span>{format(showDate, "EEE, dd MMM", { locale: ptBR })}</span>
-          </div>
-          <div className="flex items-center gap-1.5">
-            <Clock className="w-3.5 h-3.5" />
-            <span>{format(showDate, 'HH:mm')}</span>
+        <div className="flex flex-wrap items-start gap-x-4 gap-y-1.5 text-sm text-muted-foreground">
+          <div className={`flex ${variant === 'compact' ? 'flex-col items-start gap-1' : 'items-center gap-4'}`}>
+            <div className="flex items-center gap-1.5">
+              <Calendar className="w-3.5 h-3.5" />
+              <span>{format(showDate, "EEE, dd MMM", { locale: ptBR })}</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <Clock className="w-3.5 h-3.5" />
+              <span>{format(showDate, 'HH:mm')}</span>
+            </div>
           </div>
           <span className="ml-auto text-base font-bold text-purple-400">
             R$ {show.fee.toLocaleString('pt-BR')}
