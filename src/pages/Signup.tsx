@@ -12,7 +12,7 @@ const Signup: React.FC = () => {
   return (
     <main className="min-h-screen bg-background flex items-center justify-center px-4">
       <section className="w-full max-w-md" aria-labelledby="signup-heading">
-        <LoginHeader title="Show Manager" subtitle="Crie sua conta" />
+        <LoginHeader title="Show Time" subtitle="Crie sua conta" />
         <article className="bg-card border border-border/50 rounded-2xl p-6 shadow-xl">
           <OAuthSection label="Criar conta com Google" />
           <SignupForm onSuccess={handleSignupSuccess} />

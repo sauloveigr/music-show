@@ -36,7 +36,7 @@ const Header: React.FC<HeaderProps> = ({ navItems, currentPath }) => {
               <img src={logoUrl} alt="Music Show logo" className="w-8 h-8 object-contain" />
             </div>
             <div>
-              <h1 className="text-xl font-bold text-white">Show Manager</h1>
+              <h1 className="text-xl font-bold text-white">Show Time</h1>
               <p className="text-sm text-gray-400">Gerencie seus shows</p>
             </div>
           </div>
