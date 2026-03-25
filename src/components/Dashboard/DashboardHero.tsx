@@ -36,7 +36,7 @@ const DashboardHero: React.FC<DashboardHeroProps> = ({
   return (
     <section className="relative overflow-hidden" aria-label="Dashboard hero">
       <div
-        className="relative overflow-hidden rounded-2xl p-6 md:p-8 text-white shadow-xl shadow-purple-900/20 border border-white/20 ring-1 ring-white/10 bg-gradient-to-br from-purple-600/35 to-purple-800/40 backdrop-blur-xl backdrop-saturate-150"
+        className="relative overflow-hidden rounded-2xl p-6 md:p-8 text-white shadow-xl shadow-purple-900/20 bg-gradient-to-br from-purple-600/35 to-purple-800/40 backdrop-blur-xl backdrop-saturate-150"
       >
         <div className="pointer-events-none absolute inset-0">
           <div className="absolute -top-24 -right-24 h-72 w-72 rounded-full bg-purple-500/20 blur-3xl" />
