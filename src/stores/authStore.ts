@@ -94,8 +94,8 @@ export const useAuthStore = create<AuthState>()(
 
                     toast.success('Conta criada com sucesso!', {
                         description: data?.user?.email
-                            ? `Você pode fazer login com ${data.user.email}.`
-                            : 'Você já pode fazer login.',
+                            ? `Confirme o e-mail ${data.user.email} para ativar sua conta e depois fazer login.`
+                            : 'Confirme seu e-mail para ativar sua conta e depois fazer login.',
                     });
 
                     set({loading: false});
