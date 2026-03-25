@@ -7,6 +7,7 @@ import Dashboard from '@/pages/Dashboard';
 import AddShow from '@/pages/AddShow';
 import Calendar from '@/pages/Calendar';
 import Login from '@/pages/Login';
+import Signup from '@/pages/Signup';
 import NotFound from '@/pages/NotFound';
 
 const queryClient = new QueryClient();
@@ -18,6 +19,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
 
           <Route
             path="/"

@@ -21,6 +21,11 @@ interface AuthState {
     loading: boolean;
 
     initialize: () => Promise<void>;
+    signUpWithPassword: (
+        email: string,
+        password: string,
+        fullName?: string,
+    ) => Promise<{error: any}>;
     signInWithPassword: (
         email: string,
         password: string,
@@ -60,6 +65,39 @@ export const useAuthStore = create<AuthState>()(
                 } catch (error) {
                     console.error('Error initializing auth:', error);
                     set({loading: false});
+                }
+            },
+
+            signUpWithPassword: async (email: string, password: string, fullName?: string) => {
+                set({loading: true});
+                try {
+                    const {data, error} = await supabase.auth.signUp({
+                        email: email.trim(),
+                        password,
+                        options: {
+                            data: {
+                                full_name: fullName?.trim() || undefined,
+                            },
+                        },
+                    });
+
+                    if (error) throw error;
+
+                    toast.success('Conta criada com sucesso!', {
+                        description: data?.user?.email
+                            ? `Você pode fazer login com ${data.user.email}.`
+                            : 'Você já pode fazer login.',
+                    });
+
+                    set({loading: false});
+                    return {error: null};
+                } catch (error: any) {
+                    const message = error?.message || 'Erro ao criar conta';
+                    toast.error('Erro ao criar conta', {
+                        description: message,
+                    });
+                    set({loading: false});
+                    return {error};
                 }
             },
 
