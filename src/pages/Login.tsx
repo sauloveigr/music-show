@@ -16,8 +16,8 @@ const Login: React.FC = () => {
       <section className="w-full max-w-md" aria-labelledby="login-heading">
         <LoginHeader title="Show Manager" subtitle="Entre na sua conta" />
         <article className="bg-card border border-border/50 rounded-2xl p-6 shadow-xl">
-          <LoginForm onSuccess={handleLoginSuccess} />
           <OAuthSection />
+          <LoginForm onSuccess={handleLoginSuccess} />
           <AuthFooter />
         </article>
       </section>

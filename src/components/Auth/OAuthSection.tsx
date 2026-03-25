@@ -15,15 +15,6 @@ const OAuthSection: React.FC<OAuthSectionProps> = ({ label = 'Continuar com Goog
 
   return (
     <section aria-labelledby="oauth-heading">
-      <div className="relative my-6">
-        <div className="absolute inset-0 flex items-center">
-          <div className="w-full border-t border-border" />
-        </div>
-        <div className="relative flex justify-center text-xs uppercase">
-          <span className="bg-card px-2 text-muted-foreground">ou continue com</span>
-        </div>
-      </div>
-
       <Button
         type="button"
         variant="outline"
@@ -50,6 +41,15 @@ const OAuthSection: React.FC<OAuthSectionProps> = ({ label = 'Continuar com Goog
         </svg>
         {label}
       </Button>
+
+      <div className="relative my-6">
+        <div className="absolute inset-0 flex items-center">
+          <div className="w-full border-t border-border" />
+        </div>
+        <div className="relative flex justify-center text-xs uppercase">
+          <span className="bg-card px-2 text-muted-foreground">ou continue com</span>
+        </div>
+      </div>
     </section>
   );
 };

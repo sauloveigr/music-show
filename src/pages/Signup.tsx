@@ -14,8 +14,8 @@ const Signup: React.FC = () => {
       <section className="w-full max-w-md" aria-labelledby="signup-heading">
         <LoginHeader title="Show Manager" subtitle="Crie sua conta" />
         <article className="bg-card border border-border/50 rounded-2xl p-6 shadow-xl">
-          <SignupForm onSuccess={handleSignupSuccess} />
           <OAuthSection label="Criar conta com Google" />
+          <SignupForm onSuccess={handleSignupSuccess} />
           <AuthFooter variant="signup" />
         </article>
       </section>
