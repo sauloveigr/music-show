@@ -50,7 +50,7 @@ const AddShow: React.FC = () => {
       />
 
       <section>
-        <Card className="bg-gradient-to-br from-gray-800 to-gray-900 border-gray-700/50 p-8">
+        <Card className="p-8">
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
             <FormFieldGroup label="Título do Show *" error={errors.title?.message}>
               <Input

@@ -20,7 +20,7 @@ const CalendarMonthStats: React.FC<CalendarMonthStatsProps> = ({
   return (
     <Card
       as="article"
-      className="border border-white/10 bg-gradient-to-br from-gray-800/90 to-gray-900/95 p-5 shadow-xl shadow-black/20 backdrop-blur-sm sm:p-6"
+      className="p-5 sm:p-6"
     >
       <header className="mb-4 flex items-center gap-2 border-b border-white/10 pb-4">
         <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-emerald-500/15 text-emerald-400">

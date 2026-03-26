@@ -8,6 +8,7 @@ import {
 } from 'date-fns';
 import { useNavigate } from 'react-router-dom';
 import { useShowStore } from '@/stores';
+import { parseLocalDate } from '@/lib/utils';
 import {
   CalendarDayDetailsPanel,
   CalendarMonthCard,
@@ -30,7 +31,7 @@ const Calendar: React.FC = () => {
 
   const getShowsForDate = useCallback(
     (date: Date) =>
-      shows.filter((show) => isSameDay(new Date(show.date), date)),
+      shows.filter((show) => isSameDay(parseLocalDate(show.date), date)),
     [shows],
   );
 
@@ -43,7 +44,7 @@ const Calendar: React.FC = () => {
 
   const { monthShowCount, monthEarnings } = useMemo(() => {
     const inMonth = shows.filter((show) =>
-      isSameMonth(new Date(show.date), currentDate),
+      isSameMonth(parseLocalDate(show.date), currentDate),
     );
     return {
       monthShowCount: inMonth.length,
@@ -71,9 +72,8 @@ const Calendar: React.FC = () => {
   };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6 md:space-y-8">
       <CalendarPageHeader onBack={() => navigate(-1)} />
-
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-3 lg:items-start lg:gap-8">
         <div className="flex flex-col gap-6 lg:col-span-2">
           <section aria-label="Calendário mensal">

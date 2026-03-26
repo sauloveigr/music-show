@@ -1,6 +1,7 @@
 import React from 'react';
 import { useAuthStore, useShowStore } from '@/stores';
 import { getUserDisplayName } from '@/lib/userDisplay';
+import { parseLocalDate } from '@/lib/utils';
 import DashboardHero from '@/components/Dashboard/DashboardHero';
 import UpcomingShowsList from '@/components/Dashboard/UpcomingShowsList';
 import StatsSection from '@/components/Dashboard/StatsSection';
@@ -15,7 +16,7 @@ const Dashboard: React.FC = () => {
   const today = new Date();
 
   const thisMonthShows = shows.filter((show) => {
-    const showDate = new Date(show.date);
+    const showDate = parseLocalDate(show.date);
     return (
       showDate.getMonth() === today.getMonth() &&
       showDate.getFullYear() === today.getFullYear()
@@ -25,7 +26,7 @@ const Dashboard: React.FC = () => {
   const thisMonthEarnings = thisMonthShows.reduce((total, show) => total + show.fee, 0);
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6 md:space-y-8">
       <DashboardHero
         userName={userName}
         upcomingCount={upcomingShows.length}

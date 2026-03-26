@@ -1,6 +1,7 @@
 import {create} from 'zustand';
 import {Show, ShowFormData} from '@/types/show';
 import {supabase} from '@/lib/supabaseClient';
+import {parseLocalDate, parseShowDateTime} from '@/lib/utils';
 
 interface ShowState {
   shows: Show[];
@@ -110,9 +111,11 @@ export const useShowStore = create<ShowState>()((set, get) => ({
       getUpcomingShows: (limit?: number) => {
         const now = new Date();
         const upcomingShows = get()
-          .shows.filter((show) => new Date(show.date) > now)
+          .shows.filter((show) => parseShowDateTime(show.date, show.time) > now)
           .sort(
-            (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
+            (a, b) =>
+              parseShowDateTime(a.date, a.time).getTime() -
+              parseShowDateTime(b.date, b.time).getTime(),
           );
 
         return limit ? upcomingShows.slice(0, limit) : upcomingShows;
@@ -120,7 +123,7 @@ export const useShowStore = create<ShowState>()((set, get) => ({
 
       getShowsByDate: (date: Date) => {
         return get().shows.filter((show) => {
-          const showDate = new Date(show.date);
+          const showDate = parseLocalDate(show.date);
           return (
             showDate.getFullYear() === date.getFullYear() &&
             showDate.getMonth() === date.getMonth() &&

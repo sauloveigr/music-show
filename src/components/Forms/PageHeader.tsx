@@ -20,8 +20,8 @@ const PageHeader: React.FC<PageHeaderProps> = ({ title, description, onBack }) =
         <ArrowLeft className="w-5 h-5" />
       </Button>
       <div>
-        <h1 className="text-3xl font-bold text-white">{title}</h1>
-        <p className="text-gray-400">{description}</p>
+        <h1 className="text-2xl md:text-3xl font-bold text-white">{title}</h1>
+        <p className="text-gray-400 text-sm md:text-base">{description}</p>
       </div>
     </header>
   );

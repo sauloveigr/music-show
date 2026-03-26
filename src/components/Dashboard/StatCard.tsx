@@ -14,7 +14,7 @@ const StatCard: React.FC<StatCardProps> = ({ icon: Icon, label, value, bgColor, 
   return (
     <Card
       as="article"
-      className="relative overflow-hidden border-white/10 bg-gradient-to-br from-card to-secondary/40 p-5 transition-colors hover:border-white/20"
+      className="relative overflow-hidden border-none bg-gradient-to-br from-card to-secondary/40 p-5 transition-colors hover:border-white/20"
     >
       <div className="pointer-events-none absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-purple-500/15 via-purple-500/60 to-purple-700/20" />
 

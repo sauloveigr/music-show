@@ -18,7 +18,7 @@ const CalendarDayDetailsPanel: React.FC<CalendarDayDetailsPanelProps> = ({
   return (
     <Card
       as="article"
-      className="border border-white/10 bg-gradient-to-br from-gray-800/90 to-gray-900/95 p-5 shadow-xl shadow-black/20 backdrop-blur-sm sm:p-6"
+      className="p-5 sm:p-6"
     >
       <header className="mb-4 border-b border-white/10 pb-4">
         <h3 className="text-lg font-semibold text-white">

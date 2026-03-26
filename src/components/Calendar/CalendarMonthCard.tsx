@@ -31,7 +31,7 @@ const CalendarMonthCard: React.FC<CalendarMonthCardProps> = ({
   return (
     <Card
       as="article"
-      className="border border-white/10 bg-gradient-to-br from-gray-800/90 to-gray-900/95 p-5 shadow-xl shadow-black/20 backdrop-blur-sm sm:p-6"
+      className="p-5 sm:p-6"
     >
       <header className="mb-5 flex flex-col gap-4 sm:mb-6 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex items-center gap-2">

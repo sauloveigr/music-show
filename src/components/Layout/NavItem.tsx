@@ -24,12 +24,12 @@ const NavItem: React.FC<NavItemProps> = ({ item, isActive, variant = 'desktop' }
       <Button
         variant={isActive ? 'musical' : 'ghost'}
         size="sm"
-        className="flex flex-col gap-1 h-auto py-2 px-3 transition-all duration-300"
+        className="flex h-auto flex-col gap-1 px-3 py-2 transition-all duration-300"
         onClick={() => navigate(item.path)}
       >
-        <span className='flex flex-col items-center gap-1'>
-          <Icon className="w-4 h-4" />
-          <span className="text-xs">{item.label}</span>
+        <span className='flex flex-col items-center gap-2'>
+          <Icon className="h-4 w-4" />
+          <span className="text-xs leading-none">{item.label}</span>
         </span>
       </Button>
     );

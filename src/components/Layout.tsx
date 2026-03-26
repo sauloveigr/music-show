@@ -33,7 +33,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
       <MobileNav navItems={navItems} currentPath={location.pathname} />
 
-      <div className="md:hidden h-20" />
+      <div className="h-14 md:hidden" />
     </div>
   );
 };
