@@ -5,6 +5,7 @@ import { parseLocalDate } from '@/lib/utils';
 import DashboardHero from '@/components/Dashboard/DashboardHero';
 import UpcomingShowsList from '@/components/Dashboard/UpcomingShowsList';
 import StatsSection from '@/components/Dashboard/StatsSection';
+import { SectionDivider } from '@/components/Shared';
 
 const Dashboard: React.FC = () => {
   const user = useAuthStore((s) => s.user);
@@ -34,6 +35,7 @@ const Dashboard: React.FC = () => {
         isShowsLoading={loading}
       />
       <UpcomingShowsList shows={upcomingShows} isLoading={loading} />
+      <SectionDivider />
       <StatsSection
         thisMonthShowsCount={thisMonthShows.length}
         thisMonthEarnings={thisMonthEarnings}
