@@ -53,7 +53,7 @@ const DashboardHero: React.FC<DashboardHeroProps> = ({
               </h1>
 
               <p className="mt-1 text-white/65 text-xs">
-                {format(todayDate, "EEEE, dd 'de' MMMM 'de' yyyy", { locale: ptBR })}
+                {format(todayDate, "EEEE, dd 'de' MMMM", { locale: ptBR })}
               </p>
 
               {isShowsLoading ? (
