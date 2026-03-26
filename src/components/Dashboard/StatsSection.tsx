@@ -54,8 +54,8 @@ const StatsSection: React.FC<StatsProps> = ({
         icon={TrendingUp}
         label="Faturamento"
         value={`R$ ${thisMonthEarnings.toLocaleString('pt-BR')}`}
-        bgColor="bg-green-500/20"
-        textColor="text-green-400"
+        bgColor="bg-emerald-500/20"
+        textColor="text-emerald-400"
       />
 
       <StatCard

@@ -63,7 +63,7 @@ const DashboardHero: React.FC<DashboardHeroProps> = ({
                 </div>
               ) : (
                 upcomingCount > 0 && (
-                  <p className="mt-2 text-xs inline-flex items-center justify-center md:justify-start gap-2 text-green-400 sm:text-sm">
+                  <p className="mt-2 text-xs inline-flex items-center justify-center md:justify-start gap-2 text-emerald-400 sm:text-sm">
                     Você tem {upcomingCount} show{pluralSuffix} próximo{pluralSuffix}
                   </p>
                 )

@@ -53,7 +53,7 @@ const ShowCard: React.FC<ShowCardProps> = ({ show, variant = 'default' }) => {
             </h3>
           </div>
 
-          <span className="ml-2 shrink-0 text-base font-bold text-purple-400">
+          <span className="ml-2 shrink-0 text-base font-bold text-emerald-400">
             R$ {show.fee.toLocaleString('pt-BR')}
           </span>
         </div>
