@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Music, Plus } from 'lucide-react';
+import { Plus } from 'lucide-react';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import { Button } from '@/components/ui/button';
@@ -47,7 +47,7 @@ const DashboardHero: React.FC<DashboardHeroProps> = ({
 
         <div className="relative z-10">
           <div className="flex items-center justify-between gap-4">
-            <header className="text-left">
+            <header className="min-w-0 flex-1 text-left">
               <h1 className="text-xl md:text-3xl lg:text-4xl font-bold">
                 Olá, {userName}
               </h1>
@@ -57,9 +57,8 @@ const DashboardHero: React.FC<DashboardHeroProps> = ({
               </p>
 
               {isShowsLoading ? (
-                <div className="mt-3 inline-flex items-center gap-2">
-                  <Skeleton className="h-4 w-4" />
-                  <Skeleton className="h-4 w-48 md:w-64" />
+                <div className="mt-3 inline-flex max-w-full items-center gap-2">
+                  <Skeleton className="h-2 w-24 sm:w-40 md:w-64" />
                 </div>
               ) : (
                 upcomingCount > 0 && (

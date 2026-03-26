@@ -42,7 +42,7 @@ const UpcomingShowsList: React.FC<UpcomingShowsListProps> = ({ shows, isLoading 
                 <div className="flex items-start justify-between gap-2 mb-3">
                   <div className="min-w-0">
                     <Skeleton className="h-5 w-56" />
-                    <div className="mt-2 flex items-center gap-2">
+                    <div className="mt-6 flex items-center gap-2">
                       <Skeleton className="h-3 w-3.5 rounded-full" />
                       <Skeleton className="h-3 w-32" />
                     </div>
@@ -59,7 +59,7 @@ const UpcomingShowsList: React.FC<UpcomingShowsListProps> = ({ shows, isLoading 
                     <Skeleton className="h-3 w-3.5" />
                     <Skeleton className="h-3 w-14" />
                   </div>
-                  <Skeleton className="ml-auto h-4 w-24" />
+                  <Skeleton className="ml-auto h-4 w-4" />
                 </div>
               </div>
             </div>
