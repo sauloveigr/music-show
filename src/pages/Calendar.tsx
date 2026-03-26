@@ -9,6 +9,8 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { useShowStore } from '@/stores';
 import { parseLocalDate } from '@/lib/utils';
+import { ShowDeleteConfirmModal } from '@/components/Shared';
+import { useShowDeleteModal } from '@/hooks/useShowDeleteModal';
 import {
   CalendarDayDetailsPanel,
   CalendarMonthCard,
@@ -19,6 +21,13 @@ import {
 const Calendar: React.FC = () => {
   const navigate = useNavigate();
   const { shows } = useShowStore();
+  const {
+    showToDelete,
+    isDeleting,
+    requestDelete,
+    cancelDelete,
+    confirmDelete,
+  } = useShowDeleteModal();
   const [currentDate, setCurrentDate] = useState(() => new Date());
   const [selectedDate, setSelectedDate] = useState<Date | null>(() => new Date());
 
@@ -91,6 +100,7 @@ const Calendar: React.FC = () => {
           <CalendarDayDetailsPanel
             selectedDate={selectedDate}
             shows={selectedDateShows}
+            onDeleteRequest={requestDelete}
           />
         </div>
 
@@ -102,6 +112,14 @@ const Calendar: React.FC = () => {
           />
         </aside>
       </div>
+
+      <ShowDeleteConfirmModal
+        isOpen={Boolean(showToDelete)}
+        show={showToDelete}
+        isLoading={isDeleting}
+        onCancel={cancelDelete}
+        onConfirm={confirmDelete}
+      />
     </div>
   );
 };

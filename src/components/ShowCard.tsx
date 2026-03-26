@@ -2,41 +2,31 @@ import React from 'react';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import { Calendar, Clock, MapPin, Trash2 } from 'lucide-react';
-import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { Show } from '@/types/show';
 import { capitalizeFirst } from '@/lib/utils';
-import { useShowStore } from '@/stores/showStore';
-import { ConfirmActionModal } from '@/components/Shared';
+import { ShowDeleteConfirmModal } from '@/components/Shared';
+import { useShowDeleteModal } from '@/hooks/useShowDeleteModal';
 
 interface ShowCardProps {
   show: Show;
   variant?: 'default' | 'compact';
+  onDeleteRequest?: (show: Show) => void;
 }
 
-const ShowCard: React.FC<ShowCardProps> = ({ show, variant = 'default' }) => {
-  const { deleteShow } = useShowStore();
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = React.useState(false);
-  const [isDeleting, setIsDeleting] = React.useState(false);
+const ShowCard: React.FC<ShowCardProps> = ({ show, variant = 'default', onDeleteRequest }) => {
+  const {
+    showToDelete,
+    isDeleting,
+    requestDelete,
+    cancelDelete,
+    confirmDelete,
+  } = useShowDeleteModal();
   const showDate = new Date(`${show.date}T${show.time}`);
 
-  const handleDeleteConfirm = async () => {
-    setIsDeleting(true);
-    await deleteShow(show.id);
-    setIsDeleting(false);
-
-    const storeError = useShowStore.getState().error;
-    if (storeError) {
-      toast.error('Erro ao excluir show', { description: storeError });
-      return;
-    }
-
-    setIsDeleteModalOpen(false);
-    toast.success('Show excluído com sucesso!');
-  };
-
   return (
-    <div className={`
+    <>
+      <div className={`
       relative overflow-hidden rounded-2xl shadow-lg shadow-black/20
       bg-gradient-to-br from-card to-secondary/30
       hover:border-purple-400/35 transition-all duration-300 hover:shadow-xl hover:shadow-purple-900/20
@@ -86,31 +76,31 @@ const ShowCard: React.FC<ShowCardProps> = ({ show, variant = 'default' }) => {
           variant="ghost"
           size="sm"
           className="absolute bottom-3 right-2 text-red-300 hover:bg-red-500/10 hover:text-red-200 py-1 px-2"
-          onClick={() => setIsDeleteModalOpen(true)}
+          onClick={() => {
+            if (onDeleteRequest) {
+              onDeleteRequest(show);
+              return;
+            }
+            requestDelete(show);
+          }}
         >
           <Trash2 className="h-4 w-4" />
         </Button>
 
       </div>
 
-      <ConfirmActionModal
-        isOpen={isDeleteModalOpen}
-        title="Excluir show"
-        description={
-          <>
-            <p>
-              Tem certeza que deseja excluir <span className="font-semibold">"{show.title}"</span>?
-            </p>
-            <p className="mt-1 text-xs text-gray-400">Esta ação não pode ser desfeita.</p>
-          </>
-        }
-        confirmLabel={isDeleting ? 'Excluindo...' : 'Excluir'}
-        cancelLabel="Cancelar"
-        isLoading={isDeleting}
-        onCancel={() => setIsDeleteModalOpen(false)}
-        onConfirm={handleDeleteConfirm}
-      />
-    </div>
+      </div>
+
+      {!onDeleteRequest && (
+        <ShowDeleteConfirmModal
+          isOpen={Boolean(showToDelete)}
+          show={showToDelete}
+          isLoading={isDeleting}
+          onCancel={cancelDelete}
+          onConfirm={confirmDelete}
+        />
+      )}
+    </>
   );
 };
 

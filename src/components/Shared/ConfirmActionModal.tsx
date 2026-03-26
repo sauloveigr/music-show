@@ -27,7 +27,7 @@ const ConfirmActionModal: React.FC<ConfirmActionModalProps> = ({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-4 backdrop-blur-sm"
+      className="fixed inset-0 z-[100] flex min-h-dvh w-screen items-center justify-center bg-black/75 px-4 backdrop-blur-sm"
       onClick={() => !isLoading && onCancel()}
     >
       <div
