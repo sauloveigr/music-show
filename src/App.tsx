@@ -63,6 +63,16 @@ function App() {
               </ProtectedRoute>
             }
           />
+          <Route
+            path="/shows/:id/edit"
+            element={
+              <ProtectedRoute>
+                <Layout>
+                  <AddShow />
+                </Layout>
+              </ProtectedRoute>
+            }
+          />
 
           <Route path="/" element={<Navigate to="/" replace />} />
 

@@ -9,13 +9,11 @@ import type { Show } from '@/types/show';
 interface CalendarDayDetailsPanelProps {
   selectedDate: Date | null;
   shows: Show[];
-  onDeleteRequest: (show: Show) => void;
 }
 
 const CalendarDayDetailsPanel: React.FC<CalendarDayDetailsPanelProps> = ({
   selectedDate,
   shows,
-  onDeleteRequest,
 }) => {
   return (
     <Card
@@ -47,11 +45,7 @@ const CalendarDayDetailsPanel: React.FC<CalendarDayDetailsPanelProps> = ({
           <ul className="space-y-4">
             {shows.map((show) => (
               <li key={show.id}>
-                <ShowCard
-                  show={show}
-                  variant="compact"
-                  onDeleteRequest={onDeleteRequest}
-                />
+                <ShowCard show={show} variant="compact" />
               </li>
             ))}
           </ul>
