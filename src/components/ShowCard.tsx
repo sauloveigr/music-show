@@ -27,13 +27,12 @@ const ShowCard: React.FC<ShowCardProps> = ({ show, variant = 'default' }) => {
     >
       <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-purple-500 to-purple-700 rounded-l-2xl" />
 
-      <div className="min-w-0 pl-4 pr-10">
+      <div className="min-w-0 pl-4">
         <div className="flex items-start justify-between gap-2 mb-3">
           <div className="min-w-0">
             <h3
-              className={`font-bold text-foreground truncate ${
-                variant === 'compact' ? 'text-base' : 'text-lg'
-              }`}
+              className={`font-bold text-foreground truncate ${variant === 'compact' ? 'text-base' : 'text-lg'
+                }`}
             >
               {capitalizeFirst(show.title)}
             </h3>
@@ -73,7 +72,7 @@ const ShowCard: React.FC<ShowCardProps> = ({ show, variant = 'default' }) => {
           type="button"
           variant="ghost"
           size="sm"
-          className="absolute bottom-3 right-2 text-purple-300 hover:bg-purple-500/15 hover:text-purple-100 py-1 px-2"
+          className="absolute bottom-3 right-2 text-purple-300 hover:bg-purple-500/15 py-2 hover:text-purple-100"
           onClick={() => navigate(`/shows/${show.id}/edit`)}
           aria-label="Editar show"
         >
