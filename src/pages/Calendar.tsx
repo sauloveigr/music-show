@@ -2,6 +2,7 @@ import React, { useCallback, useMemo, useState } from 'react';
 import {
   eachDayOfInterval,
   endOfMonth,
+  getDay,
   isSameDay,
   isSameMonth,
   startOfMonth,
@@ -24,10 +25,16 @@ const Calendar: React.FC = () => {
 
   const monthStart = startOfMonth(currentDate);
   const monthEnd = endOfMonth(currentDate);
-  const daysInMonth = useMemo(
-    () => eachDayOfInterval({ start: monthStart, end: monthEnd }),
-    [monthStart, monthEnd],
-  );
+  /** Aligns with CALENDAR_WEEKDAY_LABELS: column 0 = Sunday (getDay 0–6). */
+  const calendarCells = useMemo((): (Date | null)[] => {
+    const days = eachDayOfInterval({ start: monthStart, end: monthEnd });
+    const leadingEmpty = getDay(monthStart);
+    const leading: (Date | null)[] = Array.from({ length: leadingEmpty }, () => null);
+    const total = leading.length + days.length;
+    const trailingEmpty = (7 - (total % 7)) % 7;
+    const trailing: (Date | null)[] = Array.from({ length: trailingEmpty }, () => null);
+    return [...leading, ...days, ...trailing];
+  }, [monthStart, monthEnd]);
 
   const getShowsForDate = useCallback(
     (date: Date) =>
@@ -80,7 +87,7 @@ const Calendar: React.FC = () => {
             <CalendarMonthCard
               currentDate={currentDate}
               selectedDate={selectedDate}
-              daysInMonth={daysInMonth}
+              calendarCells={calendarCells}
               getShowCountForDate={getShowCountForDate}
               onPrevMonth={() => navigateMonth('prev')}
               onNextMonth={() => navigateMonth('next')}

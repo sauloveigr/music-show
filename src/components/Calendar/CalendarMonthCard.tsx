@@ -10,7 +10,7 @@ import CalendarDayCell from './CalendarDayCell';
 interface CalendarMonthCardProps {
   currentDate: Date;
   selectedDate: Date | null;
-  daysInMonth: Date[];
+  calendarCells: (Date | null)[];
   getShowCountForDate: (date: Date) => number;
   onPrevMonth: () => void;
   onNextMonth: () => void;
@@ -21,7 +21,7 @@ interface CalendarMonthCardProps {
 const CalendarMonthCard: React.FC<CalendarMonthCardProps> = ({
   currentDate,
   selectedDate,
-  daysInMonth,
+  calendarCells,
   getShowCountForDate,
   onPrevMonth,
   onNextMonth,
@@ -87,13 +87,13 @@ const CalendarMonthCard: React.FC<CalendarMonthCardProps> = ({
       <CalendarWeekdayLabels />
 
       <div className="grid grid-cols-7 gap-1" role="grid" aria-label="Dias do mês">
-        {daysInMonth.map((day) => (
+        {calendarCells.map((day, index) => (
           <CalendarDayCell
-            key={day.toISOString()}
+            key={day ? day.toISOString() : `pad-${index}`}
             day={day}
             currentMonth={currentDate}
             selectedDate={selectedDate}
-            showCount={getShowCountForDate(day)}
+            showCount={day ? getShowCountForDate(day) : 0}
             onSelect={onSelectDay}
           />
         ))}

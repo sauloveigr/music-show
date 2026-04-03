@@ -3,7 +3,7 @@ import { format, isSameDay, isSameMonth, isToday } from 'date-fns';
 import { cn } from '@/lib/utils';
 
 interface CalendarDayCellProps {
-  day: Date;
+  day: Date | null;
   currentMonth: Date;
   selectedDate: Date | null;
   showCount: number;
@@ -17,6 +17,15 @@ const CalendarDayCell: React.FC<CalendarDayCellProps> = ({
   showCount,
   onSelect,
 }) => {
+  if (!day) {
+    return (
+      <div
+        className="h-11 sm:h-12"
+        aria-hidden
+      />
+    );
+  }
+
   const hasShows = showCount > 0;
   const inCurrentMonth = isSameMonth(day, currentMonth);
   const dayIsToday = isToday(day);
