@@ -26,9 +26,6 @@ const StatCard: React.FC<StatCardProps> = ({ icon: Icon, label, value, bgColor, 
           </p>
           <p className="text-3xl font-semibold leading-none text-foreground">{value}</p>
         </div>
-        <div className={`h-11 w-11 shrink-0 ${bgColor} rounded-xl flex items-center justify-center`}>
-          <Icon className={`h-5 w-5 ${textColor}`} />
-        </div>
         <BadgeIcon bgColor={bgColor} icon={Icon} textColor={textColor} />
       </div>
     </Card>
