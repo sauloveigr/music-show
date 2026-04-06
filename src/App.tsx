@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
-import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Toaster } from 'sonner';
-import { ProtectedRoute } from '@/components/Auth';
+import { ProtectedRoute, PublicRoute } from '@/components/Auth';
 import Layout from '@/components/Layout';
 import Dashboard from '@/pages/Dashboard';
 import AddShow from '@/pages/AddShow';
@@ -10,6 +10,7 @@ import Calendar from '@/pages/Calendar';
 import Login from '@/pages/Login';
 import Signup from '@/pages/Signup';
 import NotFound from '@/pages/NotFound';
+import { InitialPage } from '@/pages/InitialPage';
 
 const queryClient = new QueryClient();
 
@@ -30,11 +31,12 @@ function App() {
       <BrowserRouter>
         <ScrollToTop />
         <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
+          <Route path="/" element={<PublicRoute><InitialPage /></PublicRoute>} />
+          <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
+          <Route path="/signup" element={<PublicRoute><Signup /></PublicRoute>} />
 
           <Route
-            path="/"
+            path="/app"
             element={
               <ProtectedRoute>
                 <Layout>
@@ -73,8 +75,6 @@ function App() {
               </ProtectedRoute>
             }
           />
-
-          <Route path="/" element={<Navigate to="/" replace />} />
 
           <Route path="*" element={<NotFound />} />
         </Routes>

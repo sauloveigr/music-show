@@ -9,7 +9,7 @@ interface LoginHeaderProps {
 const LoginHeader: React.FC<LoginHeaderProps> = ({ title, subtitle }) => {
   return (
     <header className="text-center mb-8">
-      <div className="w-16 h-16 flex items-center justify-center mx-auto mb-4">
+      <div className="w-16 h-16 flex items-center justify-center mx-auto mb-4 sm:hidden">
         <img
           src={logoUrl}
           alt="Music Show logo"

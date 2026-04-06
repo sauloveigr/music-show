@@ -7,7 +7,7 @@ const Login: React.FC = () => {
   const location = useLocation();
 
   const handleLoginSuccess = () => {
-    const from = location.state?.from?.pathname || '/';
+    const from = location.state?.from?.pathname || '/app';
     navigate(from, { replace: true });
   };
 

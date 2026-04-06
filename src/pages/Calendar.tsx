@@ -6,6 +6,8 @@ import {
   isSameDay,
   isSameMonth,
   startOfMonth,
+  addMonths,
+  subMonths,
 } from 'date-fns';
 import { useNavigate } from 'react-router-dom';
 import { useShowStore } from '@/stores';
@@ -23,18 +25,17 @@ const Calendar: React.FC = () => {
   const [currentDate, setCurrentDate] = useState(() => new Date());
   const [selectedDate, setSelectedDate] = useState<Date | null>(() => new Date());
 
-  const monthStart = startOfMonth(currentDate);
-  const monthEnd = endOfMonth(currentDate);
   /** Aligns with CALENDAR_WEEKDAY_LABELS: column 0 = Sunday (getDay 0–6). */
   const calendarCells = useMemo((): (Date | null)[] => {
-    const days = eachDayOfInterval({ start: monthStart, end: monthEnd });
-    const leadingEmpty = getDay(monthStart);
+    const start = startOfMonth(currentDate);
+    const days = eachDayOfInterval({ start, end: endOfMonth(currentDate) });
+    const leadingEmpty = getDay(start);
     const leading: (Date | null)[] = Array.from({ length: leadingEmpty }, () => null);
     const total = leading.length + days.length;
     const trailingEmpty = (7 - (total % 7)) % 7;
     const trailing: (Date | null)[] = Array.from({ length: trailingEmpty }, () => null);
     return [...leading, ...days, ...trailing];
-  }, [monthStart, monthEnd]);
+  }, [currentDate]);
 
   const getShowsForDate = useCallback(
     (date: Date) =>
@@ -47,7 +48,10 @@ const Calendar: React.FC = () => {
     [getShowsForDate],
   );
 
-  const selectedDateShows = selectedDate ? getShowsForDate(selectedDate) : [];
+  const selectedDateShows = useMemo(
+    () => (selectedDate ? getShowsForDate(selectedDate) : []),
+    [selectedDate, getShowsForDate],
+  );
 
   const { monthShowCount, monthEarnings } = useMemo(() => {
     const inMonth = shows.filter((show) =>
@@ -59,24 +63,16 @@ const Calendar: React.FC = () => {
     };
   }, [shows, currentDate]);
 
-  const navigateMonth = (direction: 'prev' | 'next') => {
-    setCurrentDate((prev) => {
-      const next = new Date(prev);
-      if (direction === 'prev') {
-        next.setMonth(prev.getMonth() - 1);
-      } else {
-        next.setMonth(prev.getMonth() + 1);
-      }
-      return next;
-    });
+  const navigateMonth = useCallback((direction: 'prev' | 'next') => {
+    setCurrentDate((prev) => direction === 'prev' ? subMonths(prev, 1) : addMonths(prev, 1));
     setSelectedDate(null);
-  };
+  }, []);
 
-  const goToToday = () => {
+  const goToToday = useCallback(() => {
     const now = new Date();
     setCurrentDate(now);
     setSelectedDate(now);
-  };
+  }, []);
 
   return (
     <div className="space-y-6 md:space-y-8">

@@ -18,7 +18,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   }, [fetchShows]);
 
   const navItems = [
-    { path: '/', icon: Home, label: 'Início' },
+    { path: '/app', icon: Home, label: 'Início' },
     { path: '/add-show', icon: Plus, label: 'Adicionar Show' },
     { path: '/calendar', icon: Calendar, label: 'Calendário' },
   ];

@@ -1,6 +1,7 @@
 import React from 'react';
 import { LucideIcon } from 'lucide-react';
 import { Card } from '@/components/ui/card';
+import { BadgeIcon } from '../ui/badge-icon';
 
 interface StatCardProps {
   icon: LucideIcon;
@@ -28,6 +29,7 @@ const StatCard: React.FC<StatCardProps> = ({ icon: Icon, label, value, bgColor, 
         <div className={`h-11 w-11 shrink-0 ${bgColor} rounded-xl flex items-center justify-center`}>
           <Icon className={`h-5 w-5 ${textColor}`} />
         </div>
+        <BadgeIcon bgColor={bgColor} icon={Icon} textColor={textColor} />
       </div>
     </Card>
   );
