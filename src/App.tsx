@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Toaster } from 'sonner';
 import { ProtectedRoute, PublicRoute } from '@/components/Auth';
 import Layout from '@/components/Layout';
@@ -11,8 +10,6 @@ import Login from '@/pages/Login';
 import Signup from '@/pages/Signup';
 import NotFound from '@/pages/NotFound';
 import { InitialPage } from '@/pages/InitialPage';
-
-const queryClient = new QueryClient();
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -26,7 +23,7 @@ const ScrollToTop = () => {
 
 function App() {
   return (
-    <QueryClientProvider client={queryClient}>
+    <>
       <Toaster />
       <BrowserRouter>
         <ScrollToTop />
@@ -79,7 +76,7 @@ function App() {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
-    </QueryClientProvider>
+    </>
   );
 }
 

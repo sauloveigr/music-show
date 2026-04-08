@@ -2,7 +2,7 @@ import React from 'react';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import { Music2 } from 'lucide-react';
-import ShowCard from '@/components/ShowCard';
+import ShowCard from '@/components/Show/ShowCard';
 import { Card } from '@/components/ui/card';
 import type { Show } from '@/types/show';
 

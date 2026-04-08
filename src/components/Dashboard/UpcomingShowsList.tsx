@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Music, Plus, Calendar } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
-import ShowCard from '@/components/ShowCard';
+import ShowCard from '@/components/Show/ShowCard';
 import { EmptyState } from '@/components/Shared';
 import { Show } from '@/types/show';
 
